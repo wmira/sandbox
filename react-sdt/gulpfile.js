@@ -13,8 +13,8 @@ var browserSync = require("browser-sync");
 // Define some paths.
 var paths = {
    // css: ['src/css/**/*.styl'],
-    app_js: ['./src/js/sdtgrid.jsx'],
-    js: ['src/js/*.js']
+  //  app_js: ['./src/js/sdtgrid.jsx'],
+    js: ['./src/js/index.js']
 };
 var staticPaths = ['./src/*.html','./src/css/*.css'];
 
@@ -47,10 +47,10 @@ gulp.task('browser-sync', function() {
         .pipe(gulp.dest('./src/css'));
 });*/
 
-// Our JS task. It will Browserify our code and compile React JSX files.
+// Our JS task. It will Browserify oujr code and compile React JSX files.
 gulp.task('js', ['clean'], function() {
     // Browserify/bundle the JS.
-    browserify(paths.app_js)
+    browserify(paths.js)
         .transform(reactify)
         .bundle()
         .pipe(source('bundle.js'))
