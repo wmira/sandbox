@@ -8,3 +8,4 @@ React.render(
     React.createElement(SDTGrid, null),
     document.getElementById('content')
 );
+

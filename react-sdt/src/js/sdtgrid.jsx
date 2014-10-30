@@ -3,7 +3,8 @@ var React = require('react');
 
 var SDTGrid = React.createClass({
     render: function() {
-        return <h1>Hello {this.props.name}!</h1>;
+        alert("render");
+        return <h1>Hello </h1>;
     }
 });
 
