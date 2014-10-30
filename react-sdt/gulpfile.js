@@ -14,19 +14,12 @@ var browserSync = require("browser-sync");
 var paths = {
    // css: ['src/css/**/*.styl'],
     app_js: ['./src/js/sdtgrid.jsx'],
-    js: ['src/js/*.js']
+    js: ['./src/js/index.js']
 };
 var staticPaths = ['./src/*.html','./src/css/*.css'];
 
-// An example of a dependency task, it will be run before the css/js tasks.
-// Dependency tasks should call the callback to tell the parent task that
-// they're done.
-gulp.task('clean', function(done) {
-    del(['build'], done);
-});
-
 gulp.task('static',function() {
-    return gulp.src(staticPaths,{ base :"src/"})
+    return gulp.src(staticPaths,{ bause :"src/"})
         .pipe(changed('./src/*.html'))
         .pipe(changed('./src/css/*.css'))
         .pipe(gulp.dest('./dist/'))
@@ -48,18 +41,20 @@ gulp.task('browser-sync', function() {
 });*/
 
 // Our JS task. It will Browserify our code and compile React JSX files.
-gulp.task('js', ['clean'], function() {
+gulp.task('js',  function() {
     // Browserify/bundle the JS.
-    browserify(paths.app_js)
+    browserify(paths.js)
         .transform(reactify)
         .bundle()
         .pipe(source('bundle.js'))
-        .pipe(gulp.dest('./dist/'));
+        .pipe(gulp.dest('./dist/'))
+        .pipe(browserSync.reload({stream:true}));
 });
 
 // Rerun tasks whenever a file changes.
 gulp.task('watch', function() {
     //gulp.watch(paths.css, ['css']);
+
     gulp.watch(staticPaths[0],['static', browserSync.reload]);
     gulp.watch(staticPaths[1],['static', browserSync.reload]);
     gulp.watch(paths.js, ['js',browserSync.reload]);
@@ -67,4 +62,4 @@ gulp.task('watch', function() {
 
 // The default task (called when we run `gulp` from cli)
 //gulp.task('default', ['watch', 'css', 'js']);
-gulp.task('default', ['browser-sync','watch',  'js']);
+gulp.task('default', ['browser-sync','js','static','watch']);
