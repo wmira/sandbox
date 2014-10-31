@@ -22,8 +22,8 @@ gulp.task('static',function() {
     return gulp.src(staticPaths,{ bause :"src/"})
         .pipe(changed('./src/*.html'))
         .pipe(changed('./src/css/*.css'))
-        .pipe(gulp.dest('./dist/'))
-        .pipe(browserSync.reload({stream:true}));
+        .pipe(gulp.dest('./dist/'));
+
 });
 gulp.task('browser-sync', function() {
     browserSync({
@@ -43,12 +43,12 @@ gulp.task('browser-sync', function() {
 // Our JS task. It will Browserify our code and compile React JSX files.
 gulp.task('js',  function() {
     // Browserify/bundle the JS.
-    browserify(paths.js)
+    return browserify(paths.js)
         .transform(reactify)
         .bundle()
         .pipe(source('bundle.js'))
-        .pipe(gulp.dest('./dist/'))
-        .pipe(browserSync.reload({stream:true}));
+        .pipe(gulp.dest('./dist/'));
+
 });
 
 // Rerun tasks whenever a file changes.
@@ -58,6 +58,7 @@ gulp.task('watch', function() {
     gulp.watch(staticPaths[0],['static', browserSync.reload]);
     gulp.watch(staticPaths[1],['static', browserSync.reload]);
     gulp.watch(paths.js, ['js',browserSync.reload]);
+    gulp.watch(paths.app_js, ['js',browserSync.reload]);
 });
 
 // The default task (called when we run `gulp` from cli)
