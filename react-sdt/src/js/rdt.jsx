@@ -1,5 +1,7 @@
 /** @jsx React.DOM */
 var React = require('react');
+var DataSource = require("./datasource");
+var RDTRow = require("./row.jsx");
 
 var renderColumns = function(config) {
     var cols = config.cols;
@@ -23,15 +25,32 @@ var renderColumns = function(config) {
 var RDT = React.createClass({
 
     getInitialState: function() {
-        console.log(this.props.config);
+        this.ds = new DataSource(this.props.datasource);
         return null;
+    },
+
+
+    /**
+     * Add a data
+     *
+     */
+    add : function(data) {
+
     },
 
     render: function() {
         var config = this.props.config;
+        console.log(this.ds);
         return (
             <table>
                 { renderColumns(config) }
+                <tbody>
+                { this.ds.data.map(function (data, idx) {
+                    return <RDTRow data={data} config={config} />
+                    })
+                }
+                </tbody>
+
             </table>
         )
 
