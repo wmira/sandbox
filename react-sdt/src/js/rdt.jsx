@@ -3,6 +3,7 @@ var React = require('react');
 var DataSource = require("./datasource");
 var RDTRow = require("./row.jsx");
 
+//FIXME move this to a component
 var renderColumns = function(config) {
     var cols = config.cols;
     return(
@@ -17,6 +18,12 @@ var renderColumns = function(config) {
     )
 };
 
+
+var TABLE_CSS = {
+    pure : {
+        table : 'pure-table'
+    }
+}
 
 /**
  * Simple Data Table using react.
@@ -39,10 +46,11 @@ var RDT = React.createClass({
     },
 
     render: function() {
+        var tableStyle = TABLE_CSS[this.props.config.style];
         var config = this.props.config;
         console.log(this.ds);
         return (
-            <table>
+            <table className={tableStyle['table']}>
                 { renderColumns(config) }
                 <tbody>
                 { this.ds.data.map(function (data, idx) {
