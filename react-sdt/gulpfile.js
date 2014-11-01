@@ -13,7 +13,7 @@ var browserSync = require("browser-sync");
 // Define some paths.
 var paths = {
    // css: ['src/css/**/*.styl'],
-    app_js: ['./src/js/sdtgrid.jsx'],
+    app_js: ['./src/js/row.jsx', './src/js/rdt.jsx', "./src/js/column.jsx"],
     js: ['./src/js/index.js']
 };
 var staticPaths = ['./src/*.html','./src/css/*.css'];
