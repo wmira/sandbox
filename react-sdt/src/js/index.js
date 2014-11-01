@@ -19,8 +19,8 @@ var datasource = {
 var config = {
     style : 'pure',
     cols : [
-        { path: "firstname" , header: "First Name"  },
-        { path: "lastname", header: "Last Name"}
+        { key: "firstname" , header: "First Name"  },
+        { key: "lastname", header: "Last Name"}
     ]
 };
 

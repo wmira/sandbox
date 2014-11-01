@@ -2,31 +2,36 @@
 var React = require('react');
 var DataSource = require("./datasource");
 var RDTRow = require("./row.jsx");
-
-//FIXME move this to a component
-var renderColumns = function(config) {
-    var cols = config.cols;
-    return(
-        <thead>
-            <tr> {
-                cols.map(function(col) {
-                    return <td>{col.header}</td>
-                })
-            }
-            </tr>
-        </thead>
-    )
-};
+var RDTColumn = require("./column.jsx");
 
 
 var TABLE_CSS = {
     pure : {
-        table : 'pure-table'
+        table : 'pure-table pure-table-bordered'
+    },
+    bootstrap : {
+        table : 'table table-bordered'
+    },
+    foundation : {
+        table : ''
     }
 }
 
 /**
  * Simple Data Table using react.
+ *
+ *
+ *  var datasource = {
+ *       index: ['id'], // row index to use to get to a row other than index
+ *       data: []
+ *   };
+ *
+ *  var config = {
+ *      style : 'pure',
+ *       cols : [
+ *           { key: "firstname" , header: "First Name"  }
+        ]
+    };
  *
  */
 var RDT = React.createClass({
@@ -48,12 +53,12 @@ var RDT = React.createClass({
     render: function() {
         var tableStyle = TABLE_CSS[this.props.config.style];
         var config = this.props.config;
-        console.log(this.ds);
+
         return (
             <table className={tableStyle['table']}>
-                { renderColumns(config) }
+                <RDTColumn config={config} />
                 <tbody>
-                { this.ds.data.map(function (data, idx) {
+                { this.ds.data.map(function (data) {
                     return <RDTRow data={data} config={config} />
                     })
                 }
