@@ -18,9 +18,10 @@ var RDTRow = React.createClass({
         var data = this.state.data;
 
         return (
-            <tr> {
+            <tr  data-index={this.props.index}> {
                     cols.map(function (col) {
-                        return <td>{data[col.key]}</td>
+                        //FIXME, we need to parse the path to make it work for nested objects
+                        return <td data-property={col.property} key={col.property}>{data[col.property]}</td>
                     })
                 }
 
